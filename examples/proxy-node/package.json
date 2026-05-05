@@ -1,0 +1,14 @@
+{
+  "name": "leaflet-ai-geojson-proxy-node",
+  "version": "1.0.0",
+  "description": "Local Express proxy for leaflet.ai.geojson",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.21.0",
+    "express-rate-limit": "^8.3.2"
+  }
+}

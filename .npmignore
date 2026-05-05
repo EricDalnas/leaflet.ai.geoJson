@@ -1,0 +1,10 @@
+# Exclude everything except src/ and dist/ (see "files" in package.json)
+examples/
+index.html
+.env
+.vscode/
+.vs/
+*.sln
+Demo-Screenshot.png
+node_modules/
+package-lock.json

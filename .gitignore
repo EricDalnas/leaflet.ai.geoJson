@@ -1,0 +1,32 @@
+# Local dev demo — contains API key, never commit
+examples/dev.html
+
+# Local env files — contain API keys, never commit
+.env
+examples/proxy-node/.env
+
+# Azure launch/local settings — contain API keys, never commit
+examples/proxy-azure/local.settings.json
+examples/proxy-azure/Properties/launchSettings.json
+
+# Node
+node_modules/
+examples/proxy-node/node_modules/
+
+# .NET / Azure Functions build output
+examples/proxy-azure/bin/
+examples/proxy-azure/obj/
+
+# Visual Studio hidden workspace folders
+.vs/
+examples/proxy-azure/.vs/
+azure-proxy/
+
+# .NET user-specific and credential files
+*.user
+*.pubxml.user
+examples/proxy-azure/Properties/PublishProfiles/LeafletAIGeojson.PublishSettings
+
+# OS
+.DS_Store
+Thumbs.db

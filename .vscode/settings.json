@@ -1,0 +1,7 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "New-Item": true,
+        "Out-Null": true,
+        "Copy-Item": true
+    }
+}

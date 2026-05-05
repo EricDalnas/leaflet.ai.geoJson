@@ -1,0 +1,42 @@
+{
+  "name": "leaflet.ai.geojson",
+  "version": "1.0.0",
+  "description": "A Leaflet plugin that lets users query an LLM for geographic data and renders the returned GeoJSON on the map.",
+  "main": "dist/leaflet.ai.geojson.js",
+  "style": "dist/leaflet.ai.geojson.css",
+  "unpkg": "dist/leaflet.ai.geojson.js",
+  "jsdelivr": "dist/leaflet.ai.geojson.js",
+  "files": [
+    "src/",
+    "dist/"
+  ],
+  "scripts": {
+    "build": "node -e \"const fs=require('fs');fs.copyFileSync('src/leaflet.ai.geojson.js','dist/leaflet.ai.geojson.js');fs.copyFileSync('src/leaflet.ai.geojson.css','dist/leaflet.ai.geojson.css');console.log('dist synced');\"",
+    "proxy": "cd examples/proxy-node && node server.js"
+  },
+  "keywords": [
+    "leaflet",
+    "leaflet-plugin",
+    "geojson",
+    "ai",
+    "llm",
+    "gemini",
+    "openai",
+    "openrouter",
+    "map"
+  ],
+  "author": "Eric Dodds",
+  "license": "MIT",
+  "homepage": "https://ericdodds.github.io/leaflet.ai.geojson/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericdodds/leaflet.ai.geojson.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ericdodds/leaflet.ai.geojson/issues"
+  },
+  "peerDependencies": {
+    "leaflet": "^1.7.0"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,407 @@
+/* ==========================================================================
+   Leaflet.AI.GeoJSON — Styles
+   ========================================================================== */
+
+.leaflet-ai-geojson {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  width: 320px;
+  max-height: 480px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.leaflet-ai-geojson-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: #3388ff;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: default;
+  user-select: none;
+}
+
+.leaflet-ai-geojson-collapse-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* Body */
+.leaflet-ai-geojson-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Chat */
+.leaflet-ai-geojson-chat {
+  flex: 1 1 auto;
+  min-height: 80px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 6px 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.leaflet-ai-geojson-msg {
+  margin-bottom: 6px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  word-wrap: break-word;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.leaflet-ai-geojson-msg-user {
+  background: #e8f0fe;
+  color: #1a3353;
+  text-align: right;
+}
+
+.leaflet-ai-geojson-msg-assistant {
+  background: #e6f7e6;
+  color: #1a3a1a;
+}
+
+.leaflet-ai-geojson-msg-error {
+  background: #fde8e8;
+  color: #8b1a1a;
+}
+
+/* Input row */
+.leaflet-ai-geojson-input-row {
+  display: flex;
+  padding: 6px 8px;
+  gap: 4px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.leaflet-ai-geojson-input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 13px;
+  outline: none;
+}
+
+.leaflet-ai-geojson-input:focus {
+  border-color: #3388ff;
+  box-shadow: 0 0 0 2px rgba(51, 136, 255, 0.25);
+}
+
+.leaflet-ai-geojson-input:disabled {
+  background: #f5f5f5;
+}
+
+/* Buttons */
+.leaflet-ai-geojson-btn {
+  background: #3388ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.leaflet-ai-geojson-btn:hover {
+  background: #2266cc;
+}
+
+.leaflet-ai-geojson-btn:disabled {
+  background: #99bfff;
+  cursor: not-allowed;
+}
+
+.leaflet-ai-geojson-btn-sm {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.leaflet-ai-geojson-btn-sm:hover {
+  background: #e0e0e0;
+}
+
+.leaflet-ai-geojson-btn-xs {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.leaflet-ai-geojson-btn-danger {
+  color: #c0392b;
+}
+
+.leaflet-ai-geojson-btn-danger:hover {
+  color: #fff;
+  background: #c0392b;
+}
+
+/* List header (toggle all / clear all) */
+.leaflet-ai-geojson-list-header {
+  display: flex;
+  gap: 4px;
+  padding: 6px 8px 2px;
+}
+
+/* Layer list */
+.leaflet-ai-geojson-layers {
+  max-height: 140px;
+  overflow-y: auto;
+  padding: 4px 8px 8px;
+}
+
+/* Model picker row (shown when modelPicker: true) */
+.leaflet-ai-geojson-model-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f9fa;
+}
+
+.leaflet-ai-geojson-model-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  white-space: nowrap;
+}
+
+.leaflet-ai-geojson-model-select {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  padding: 3px 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.leaflet-ai-geojson-model-select:disabled {
+  background: #f0f0f0;
+  color: #999;
+}
+
+.leaflet-ai-geojson-model-hint {
+  font-size: 10px;
+  color: #e65100;
+  white-space: nowrap;
+}
+
+/* Static model name shown when modelPicker is off */
+.leaflet-ai-geojson-model-static {
+  padding: 3px 10px 4px;
+  font-size: 11px;
+  color: #888;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f9fa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leaflet-ai-geojson-layer-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+}
+
+.leaflet-ai-geojson-layer-row input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.leaflet-ai-geojson-layer-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+/* Header actions wrapper (gear + collapse sit inside this) */
+.leaflet-ai-geojson-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* Gear settings button */
+.leaflet-ai-geojson-gear-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 5px;
+  opacity: 0.75;
+  transition: opacity 0.15s, transform 0.2s;
+}
+
+.leaflet-ai-geojson-gear-btn:hover {
+  opacity: 1;
+}
+
+.leaflet-ai-geojson-gear-btn-active {
+  opacity: 1;
+  transform: rotate(45deg);
+}
+
+/* Settings panel */
+.leaflet-ai-geojson-settings {
+  border-bottom: 1px solid #d0d0d0;
+  background: #f4f6fb;
+  padding: 7px 10px 9px;
+}
+
+.leaflet-ai-geojson-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0;
+  gap: 8px;
+}
+
+.leaflet-ai-geojson-settings-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  white-space: nowrap;
+  min-width: 88px;
+}
+
+.leaflet-ai-geojson-settings-ctrl {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.leaflet-ai-geojson-settings-range {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+  accent-color: #3388ff;
+}
+
+.leaflet-ai-geojson-settings-val {
+  font-size: 11px;
+  color: #333;
+  min-width: 28px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.leaflet-ai-geojson-settings-select {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  padding: 2px 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.leaflet-ai-geojson-settings-radios {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.leaflet-ai-geojson-settings-radio-label,
+.leaflet-ai-geojson-settings-checkbox-label {
+  font-size: 11px;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+/* Spinner — shown in the model row while the model list is loading */
+.leaflet-ai-geojson-spinner {
+  width: 11px;
+  height: 11px;
+  border: 2px solid #d0d8e8;
+  border-top-color: #3388ff;
+  border-radius: 50%;
+  animation: leaflet-ai-geojson-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes leaflet-ai-geojson-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Indeterminate progress bar shown at the bottom of the chat while a query is in flight */
+.leaflet-ai-geojson-progress {
+  height: 2px;
+  background: #e8eef8;
+  overflow: hidden;
+  display: none;
+}
+
+.leaflet-ai-geojson-progress-active {
+  display: block;
+}
+
+.leaflet-ai-geojson-progress-bar {
+  height: 100%;
+  width: 40%;
+  background: #3388ff;
+  animation: leaflet-ai-geojson-progress 1.4s ease-in-out infinite;
+}
+
+@keyframes leaflet-ai-geojson-progress {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* Thinking bubble shown in the chat while waiting for a response */
+.leaflet-ai-geojson-msg-thinking {
+  background: #f0f4f8;
+  color: #888;
+  font-style: italic;
+}
+
+.leaflet-ai-geojson-thinking-dots::after {
+  content: '';
+  animation: leaflet-ai-geojson-dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes leaflet-ai-geojson-dots {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+}
