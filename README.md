@@ -9,7 +9,6 @@ A lightweight [Leaflet](https://leafletjs.com/) plugin that lets users query an 
 - **Navigation queries** — "Zoom to Tokyo" pans the map without drawing anything
 - **Layer management** — each query creates a named, toggleable layer; clear individually or all at once
 - **Built-in chat UI** — collapsible panel with chat log, model picker, and settings
-- **Zero dependencies** beyond Leaflet itself
 
 ## Live Demo
 
@@ -56,7 +55,7 @@ L.control.aiGeojson({
 }).addTo(map);
 ```
 
-The plugin always routes requests through a backend proxy. See [Examples](#examples) for a ready-to-run Node proxyf.
+The plugin always routes requests through a backend proxy. See [Examples](#examples) for a ready-to-run Node proxy.
 
 ## Examples
 
