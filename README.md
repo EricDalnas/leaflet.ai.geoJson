@@ -55,7 +55,7 @@ L.control.aiGeojson({
 }).addTo(map);
 ```
 
-The plugin always routes requests through a backend proxy. See [Examples](#examples) for a ready-to-run Node proxy.
+The plugin always routes requests through a backend proxy. See [Examples](#examples) for a ready-to-run Node proxy. See [Production Checklist](#production-checklist) before exposing any proxy to the internet.
 
 ## Examples
 
@@ -74,23 +74,24 @@ Every LLM proxy that's reachable from the internet needs the following. Skipping
 
 ### 1. Authentication — who is allowed to call your proxy?
 
-The proxy endpoint (`/llm`) must only accept requests from your own application. Without authentication, anyone who finds the URL can consume your quota.
+Because this plugin runs in the browser, every request it makes — including the proxy URL and any headers — is visible in the browser's network inspector. Anyone who can load your page can see and replay those requests. This is a fundamental constraint of browser-based plugins, not a bug.
 
-**Options (pick the one that fits your architecture):**
+**What this means in practice:**
 
-- **Same-origin cookie / session** — if your app already has a login, issue a session cookie and validate it on the proxy. Requests from your Leaflet page will include it automatically; arbitrary third-party callers won't have it.
-- **Signed JWT** — your backend mints a short-lived token after the user authenticates; the browser sends it as a `Bearer` header. Verify the signature on the proxy.
-- **Shared secret header** — for internal tools only. The browser sends a fixed `X-Auth-Key` header; the proxy rejects anything without it. This is simple but offers no per-user tracking and must be treated as a secret. The Azure example supports this via the `AUTH_KEY` environment variable.
-- **OAuth / OIDC** — for multi-user apps: let an identity provider (Google, Azure AD, etc.) issue tokens. Your proxy validates them without storing credentials.
+- **For static or demo sites (no user accounts):** You cannot fully prevent a determined person from reusing your proxy endpoint. Your real defenses are rate limiting and spend caps (see below). CORS helps block casual cross-site abuse from other browser pages but does not stop `curl` or scripts.
+- **For apps with user accounts (dynamic sites):** You can genuinely restrict access. The proxy checks that the user is authenticated before forwarding requests. Options:
+  - **Session cookie** — if your app has a login, validate the session on the proxy. Browsers send cookies automatically for same-origin requests; arbitrary callers won't have a valid session.
+  - **Signed JWT / OAuth / OIDC** — your backend issues a short-lived token after login; the browser sends it as a `Bearer` header; the proxy verifies it before forwarding.
+- **Shared secret header (`X-Auth-Key`)** — raises the bar slightly by obscuring the endpoint, but any secret sent from the browser can be extracted from network traffic. Treat it as a convenience for internal tools where users are trusted, not as real security. The Azure example supports this via the `AUTH_KEY` environment variable.
 
-### 2. Rate limiting — how many requests per user?
+### 2. Rate limiting and spend caps — your real safety net
 
-Even with authentication, a single user (or a bug in your code) can generate hundreds of requests per minute and exhaust your daily quota.
+For static/demo sites especially, rate limiting and spend caps are your primary protection against runaway costs.
 
 **Minimum viable limits:**
 - Per-IP rate limit (both example proxies include this — tune `RATE_LIMIT_RPM`)
 - Per-authenticated-user limit if you have auth
-- Set a **spend cap** on your Gemini/OpenAI key in the provider's dashboard — this is the last line of defence
+- **Set a spend cap on your API key in the provider's dashboard** — this is the most important control regardless of everything else
 
 ### 3. Input validation — what can users ask?
 
