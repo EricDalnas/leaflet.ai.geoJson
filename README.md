@@ -63,53 +63,8 @@ The plugin always routes requests through a backend proxy. See [Examples](#examp
 
 | Folder | What it is |
 |---|---|
-| [`examples/proxy-node`](examples/proxy-node) | Local Express proxy. API key lives in `.env` on your machine. Binds to `127.0.0.1` — not reachable from the network. Start here for local development. |
-| [`examples/proxy-azure`](examples/proxy-azure) | Azure App Service deployment with CORS, per-IP rate limiting, and an optional shared-secret auth header. A better starting point for a real deployment. |
-
-## Production Checklist
-
-> **Disclaimer:** This checklist is a starting point, not a complete or authoritative security guide. Every deployment has different risk, compliance, and infrastructure requirements. Consult the [OWASP API Security Top 10](https://owasp.org/API-Security/editions/2023/en/0x00-header/) and your AI provider's own security documentation ([Google AI](https://ai.google.dev/gemini-api/docs/safety-guidance), [OpenAI](https://platform.openai.com/docs/guides/safety-best-practices)) before any production deployment. When in doubt, engage a qualified security professional.
-
-Every LLM proxy that's reachable from the internet needs the following. Skipping any one of them can result in runaway API costs or abuse.
-
-### 1. Authentication — who is allowed to call your proxy?
-
-Because this plugin runs in the browser, every request it makes — including the proxy URL and any headers — is visible in the browser's network inspector. Anyone who can load your page can see and replay those requests. This is a fundamental constraint of browser-based plugins, not a bug.
-
-**What this means in practice:**
-
-- **For static or demo sites (no user accounts):** You cannot fully prevent a determined person from reusing your proxy endpoint. Your real defenses are rate limiting and spend caps (see below). CORS helps block casual cross-site abuse from other browser pages but does not stop `curl` or scripts.
-- **For apps with user accounts (dynamic sites):** You can genuinely restrict access. The proxy checks that the user is authenticated before forwarding requests. Options:
-  - **Session cookie** — if your app has a login, validate the session on the proxy. Browsers send cookies automatically for same-origin requests; arbitrary callers won't have a valid session.
-  - **Signed JWT / OAuth / OIDC** — your backend issues a short-lived token after login; the browser sends it as a `Bearer` header; the proxy verifies it before forwarding.
-- **Shared secret header (`X-Auth-Key`)** — raises the bar slightly by obscuring the endpoint, but any secret sent from the browser can be extracted from network traffic. Treat it as a convenience for internal tools where users are trusted, not as real security. The Azure example supports this via the `AUTH_KEY` environment variable.
-
-### 2. Rate limiting and spend caps — your real safety net
-
-For static/demo sites especially, rate limiting and spend caps are your primary protection against runaway costs.
-
-**Minimum viable limits:**
-- Per-IP rate limit (both example proxies include this — tune `RATE_LIMIT_RPM`)
-- Per-authenticated-user limit if you have auth
-- **Set a spend cap on your API key in the provider's dashboard** — this is the most important control regardless of everything else
-
-### 3. Input validation — what can users ask?
-
-- Enforce a **maximum request body size** (both examples already limit to 32 KB)
-- Consider a **prompt content policy** if your app is public (e.g. block requests that look like jailbreak attempts)
-- Validate the `model` field against an allowlist so users can't force expensive models
-
-### 4. HTTPS and origin control
-
-- Always serve the proxy over **HTTPS** — never plain HTTP in production
-- Set a strict **CORS origin** to your domain, not `*` (the Azure example supports `ALLOWED_ORIGIN`)
-- The Node example blocks [DNS rebinding attacks](https://en.wikipedia.org/wiki/DNS_rebinding) by rejecting requests whose `Host` header isn't `localhost`; replace this with an origin allowlist in production
-
-### 5. Key hygiene
-
-- Store the API key in an **environment variable or secrets manager** — never in source code
-- Use a **separate key per environment** (dev / staging / prod) so you can revoke one without affecting others
-- Set a **spend cap** on each key at the provider level
+| [`examples/proxy-node`](examples/proxy-node) | Local Express proxy |
+| [`examples/proxy-azure`](examples/proxy-azure) | Azure App Service deployment |
 
 ## Options
 
@@ -186,6 +141,53 @@ Remove one layer or all layers.
 ### `L.Control.AiGeojson.isPreviewModel(id)`
 
 Returns `true` if the model ID looks like a preview or experimental build.
+
+
+## Production Checklist
+
+> **Disclaimer:** This checklist is a starting point, not a complete or authoritative security guide. Every deployment has different risk, compliance, and infrastructure requirements. Consult the [OWASP API Security Top 10](https://owasp.org/API-Security/editions/2023/en/0x00-header/) and your AI provider's own security documentation ([Google AI](https://ai.google.dev/gemini-api/docs/safety-guidance), [OpenAI](https://platform.openai.com/docs/guides/safety-best-practices)) before any production deployment. When in doubt, engage a qualified security professional.
+
+Every LLM proxy that's reachable from the internet needs the following. Skipping any one of them can result in runaway API costs or abuse.
+
+### 1. Authentication — who is allowed to call your proxy?
+
+Because this plugin runs in the browser, every request it makes — including the proxy URL and any headers — is visible in the browser's network inspector. Anyone who can load your page can see and replay those requests. This is a fundamental constraint of browser-based plugins, not a bug.
+
+**What this means in practice:**
+
+- **For static or demo sites (no user accounts):** You cannot fully prevent a determined person from reusing your proxy endpoint. Your real defenses are rate limiting and spend caps (see below). CORS helps block casual cross-site abuse from other browser pages but does not stop `curl` or scripts.
+- **For apps with user accounts (dynamic sites):** You can genuinely restrict access. The proxy checks that the user is authenticated before forwarding requests. Options:
+  - **Session cookie** — if your app has a login, validate the session on the proxy. Browsers send cookies automatically for same-origin requests; arbitrary callers won't have a valid session.
+  - **Signed JWT / OAuth / OIDC** — your backend issues a short-lived token after login; the browser sends it as a `Bearer` header; the proxy verifies it before forwarding.
+- **Shared secret header (`X-Auth-Key`)** — raises the bar slightly by obscuring the endpoint, but any secret sent from the browser can be extracted from network traffic. Treat it as a convenience for internal tools where users are trusted, not as real security. The Azure example supports this via the `AUTH_KEY` environment variable.
+
+### 2. Rate limiting and spend caps — your real safety net
+
+For static/demo sites especially, rate limiting and spend caps are your primary protection against runaway costs.
+
+**Minimum viable limits:**
+- Per-IP rate limit (both example proxies include this — tune `RATE_LIMIT_RPM`)
+- Per-authenticated-user limit if you have auth
+- **Set a spend cap on your API key in the provider's dashboard** — this is the most important control regardless of everything else
+
+### 3. Input validation — what can users ask?
+
+- Enforce a **maximum request body size** (both examples already limit to 32 KB)
+- Consider a **prompt content policy** if your app is public (e.g. block requests that look like jailbreak attempts)
+- Validate the `model` field against an allowlist so users can't force expensive models
+
+### 4. HTTPS and origin control
+
+- Always serve the proxy over **HTTPS** — never plain HTTP in production
+- Set a strict **CORS origin** to your domain, not `*` (the Azure example supports `ALLOWED_ORIGIN`)
+- The Node example blocks [DNS rebinding attacks](https://en.wikipedia.org/wiki/DNS_rebinding) by rejecting requests whose `Host` header isn't `localhost`; replace this with an origin allowlist in production
+
+### 5. Key hygiene
+
+- Store the API key in an **environment variable or secrets manager** — never in source code
+- Use a **separate key per environment** (dev / staging / prod) so you can revoke one without affecting others
+- Set a **spend cap** on each key at the provider level
+
 
 ## License
 

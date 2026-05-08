@@ -1,0 +1,38 @@
+# Local dev environment
+.env
+*.local
+
+# Editors / IDEs
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# .NET build output
+bin/
+obj/
+
+# Jekyll (Leaflet docs site) build output
+docs/_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler
+vendor/
+.bundle/
