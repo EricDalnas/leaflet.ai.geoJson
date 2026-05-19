@@ -564,14 +564,12 @@
       if (!this.options.proxyUrl) {
         return Promise.reject(new Error(
           '[leaflet.ai.geojson] proxyUrl is required. ' +
-          'Set proxyUrl to a same-origin backend endpoint that holds your API key. ' +
           'See examples/proxy-node or examples/proxy-azure for working implementations.'
         ));
       }
       return this._callProxy(userMessage);
     },
 
-    // Posts the query to a caller-supplied backend that holds the API key.
     // Expected request body: { message, systemPrompt, model, temperature, maxTokens }
     // Expected response:     { text: "<LLM reply string>" }  OR  { error: "..." }
     _callProxy: function (userMessage) {

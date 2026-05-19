@@ -13,5 +13,5 @@ A lightweight Leaflet control that lets users query an LLM (Gemini, OpenAI,
 OpenRouter, etc.) for geographic data and renders the result on the map as
 toggleable GeoJSON layers. Supports navigation queries ("Zoom to Tokyo"),
 named per-query layers with individual or bulk clear, a built-in collapsible
-chat UI, model picker, and settings panel. Requires a same-origin backend
-proxy to hold your API key.
+chat UI, model picker, and settings panel. Requires a backend proxy URL to
+hold your API key.
